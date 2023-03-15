@@ -1,4 +1,27 @@
-<h1>Product Count:</h1>
-<p><%= @product_count %></p>
-<h1>Category Count:</h1>
-<p><%= @category_count %></p>
+<header class="page-header">
+    <h1>Admin &raquo; Dashboard</h1>
+  </header>
+
+  <div class="well">
+    <%= link_to '+ New Product', [:new, :admin, :product], class: 'btn btn-info' %>
+  </div>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Product Count</h5>
+        <p class="card-text"><%= @product_count %></p>
+         <%= link_to "Go to Products", "/admin/products" %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Category Count</h5>
+        <p class="card-text"><%= @category_count %></p>
+        <%= link_to "Go to Products", "/admin/products" %>
+      </div>
+    </div>
+  </div>
+</div>
