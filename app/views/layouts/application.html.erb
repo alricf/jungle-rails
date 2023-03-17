@@ -12,9 +12,23 @@
 <body>
 
   <% if current_user %>
-    Signed in as <%= current_user.first_name + current_user.last_name %> | <%= link_to 'Logout', '/logout' %>
+    <div class="d-flex flex-row-reverse bd-highlight">
+      <h4>
+        Signed in as: <%= "#{current_user.first_name} #{current_user.last_name}" %>
+        <button type="button" class="btn btn-outline-danger">
+          <%= link_to 'Logout', '/logout' %>
+        </button>
+      </h4>
+    </div>
   <% else %>
-    <%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %>
+  <div class="d-flex flex-row-reverse bd-highlight">
+    <button type="button" class="btn btn-warning">
+      <%= link_to 'Login', '/login' %>
+    </button>
+    <button type="button" class="btn btn-warning">
+      <%= link_to 'Signup', '/signup' %>
+    </button>
+  </div>
   <% end %>
 
   <%= render 'layouts/top_nav' %>
