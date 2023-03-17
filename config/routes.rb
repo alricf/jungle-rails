@@ -21,9 +21,13 @@ Rails.application.routes.draw do
     resources :categories, except: [:edit, :update, :show, :destroy]
   end
 
-  # Route to get form to register user.
+  # Routes show users a login form, log them in, and log them out.
+  get '/login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
+
+  # Routes for user signup form and creating new user in database.
   get '/signup' => 'users#new'
-  # Route to post data from form given by user.
   post '/users' => 'users#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
