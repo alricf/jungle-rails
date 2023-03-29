@@ -54,4 +54,32 @@ RSpec.describe User, type: :model do
       expect(@user2.errors.full_messages).to include("Password is too short (minimum is 3 characters)")
     end
   end
+
+  describe '.authenticate_with_credentials' do
+    it 'should return user if user is authenticated' do
+      @user = User.new({
+        first_name: 'Bill',
+        last_name: 'Riley',
+        email: 'br@gmail.com',
+        password: '123*Testing',
+        password_confirmation: '123*Testing'
+      })
+      @user.save!
+      user = User.authenticate_with_credentials(@user.email, @user.password);
+      expect(user.id).to be_present  
+    end
+
+    it 'should return nil if user is not authenticated' do
+      @user = User.new({
+        first_name: 'Charlie',
+        last_name: 'Ray',
+        email: nil,
+        password: '123*Testing',
+        password_confirmation: '123*Testing'
+      })
+      user = User.authenticate_with_credentials(@user.email, @user.password);
+      expect(user).to be_nil
+    end
+  end
+  
 end
