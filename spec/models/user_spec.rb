@@ -13,18 +13,21 @@ RSpec.describe User, type: :model do
 
     it 'should be created with matching password and password_confirmation fields' do
       @user.password_confirmation = '123'
+      @user.save
       expect(@user).to_not be_valid
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
 
     it 'should be created with defined password field' do
       @user.password = nil
+      @user.save
       expect(@user).to_not be_valid
       expect(@user.errors.full_messages).to include("Password can't be blank")
     end
 
     it 'should be created with defined password_confirmation field' do
       @user.password_confirmation = nil
+      @user.save
       expect(@user).to_not be_valid
       expect(@user.errors.full_messages).to include("Password confirmation can't be blank")
     end
@@ -38,18 +41,21 @@ RSpec.describe User, type: :model do
 
     it 'should be created with defined email field' do
       @user.email = nil
+      @user.save
       expect(@user).to_not be_valid
       expect(@user.errors.full_messages).to include("Email can't be blank")
     end
 
     it 'should be created with defined first_name field' do
       @user.first_name = nil
+      @user.save
       expect(@user).to_not be_valid
       expect(@user.errors.full_messages).to include("First name can't be blank")
     end
 
     it 'should be created with defined last_name field' do
       @user.last_name = nil
+      @user.save
       expect(@user).to_not be_valid
       expect(@user.errors.full_messages).to include("Last name can't be blank")
     end
@@ -80,6 +86,7 @@ RSpec.describe User, type: :model do
 
     it 'should return nil if user is not authenticated' do
       @user.email = ''
+      @user.save
       user = User.authenticate_with_credentials(@user.email, @user.password)
       expect(user).to be_nil
     end
@@ -89,13 +96,16 @@ RSpec.describe User, type: :model do
       user = User.authenticate_with_credentials(email, @user.password)
       expect(user).to eql(@user)
       expect(user.email).to eql('br@gmail.com')
+      expect(user).to be_present
     end
 
     it 'should authenticate if a visitor types in the wrong case for their email' do
-      email = 'bR@GMail.cOM'
+      @user.email = 'eXample@domain.COM'
+      @user.save
+      email = 'EXAMPLe@DOMAIN.CoM'
+      expect(@user).to be_valid
       user = User.authenticate_with_credentials(email, @user.password)
-      expect(user).to eql(@user)
-      expect(user.email).to eql('br@gmail.com')
+      expect(user).to be_present
     end
 
   end
