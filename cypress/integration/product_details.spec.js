@@ -3,7 +3,7 @@ describe("Product Details", () => {
     cy.visit('/');
   });
 
-  it("Clicks the scented blade product on the home page", () => {
+  it("Click the scented blade product on the home page", () => {
     cy.get('img[alt="Scented Blade"]').click();
   });
 
